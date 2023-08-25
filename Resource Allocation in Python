@@ -1,0 +1,68 @@
+# Resource Allocation Project Report
+
+## Introduction
+
+In this project, we are addressing a resource allocation problem where we need to assign resources to different locations for various tasks. The objective is to minimize the overall resource cost while satisfying location-specific and task-specific constraints.
+
+## Problem Description
+
+We have the following dataframes:
+
+### Location Data
+
+| Location   | Max Resource |
+|------------|--------------|
+| location1  | 500          |
+| location2  | 600          |
+| location3  | 250          |
+
+### Work Data
+
+| Work   | Min Resource |
+|--------|--------------|
+| work1  | 550          |
+| work2  | 300          |
+
+### Resource Cost Matrix
+
+| Resource Cost   | Work 1 | Work 2 |
+|-----------------|--------|--------|
+| location1       | 150    | 200    |
+| location2       | 220    | 310    |
+| location3       | 210    | 440    |
+
+## Model Creation and Constraints
+
+We create a linear programming model using the PuLP library. The model aims to minimize the total resource cost while satisfying the following constraints:
+
+1. Each location's allocated resources should not exceed its maximum resource capacity.
+2. Each work's allocated resources should meet its minimum resource requirement.
+
+## Model Solution
+
+Let's solve the model and display the results:
+
+```python
+import pandas as pd
+import pulp as plp
+import numpy as np
+
+# ... (Code for loading data and creating the model)
+
+model.solve()
+status = plp.LpStatus[model.status]
+
+print("Optimal overall resource cost: ", str(plp.value(model.objective)))
+
+for each in model.variables():
+    print("Optimal cost of", each, ": " + str(each.value()))
+
+The optimal solution will show the allocated resources for each location and work, along with the minimized overall resource cost.
+Solution: 
+Optimal overall resouce cost:  164500.0
+Optimal cost of  R_11 : 200.0
+Optimal cost of  R_12 : 300.0
+Optimal cost of  R_21 : 100.0
+Optimal cost of  R_22 : 0.0
+Optimal cost of  R_31 : 250.0
+Optimal cost of  R_32 : 0.0
